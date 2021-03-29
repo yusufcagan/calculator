@@ -1,46 +1,53 @@
-import React from 'react';
-import {Text ,View, StyleSheet, Dimensions} from 'react-native'
+import React, {useState} from 'react';
+import {Text ,View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
 
 const {width,height} =Dimensions.get('window');
 
-function App () {  
+function App () {
+
+  const [Number, setNumber] = useState(0);
+
+  onChange = (Number) => {
+    setNumber({Number:Number})
+  }
+
   return (
     <View style={{flex:1,backgroundColor:'#00'}}> 
-      <View style={{height:'43%'}}></View>    
+      <View style={{height:'43%', justifyContent:'flex-end', alignItems:'flex-end'}}><Text style={{fontSize:70, color:'white'}}>{Number}</Text></View>    
       
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>( )</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>%</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>/</Text></View>
+        <TouchableOpacity><View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>( )</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>%</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>/</Text></View></TouchableOpacity>
       </View>   
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <View style={styles.border}><Text style={styles.text}>7</Text></View>
-        <View style={styles.border}><Text style={styles.text}>8</Text></View>
-        <View style={styles.border}><Text style={styles.text}>9</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>X</Text></View>
+        <TouchableOpacity onPress={() => onChange('7')}><View style={styles.border}><Text style={styles.text}>7</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>8</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>9</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>X</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <View style={styles.border}><Text style={styles.text}>4</Text></View>
-        <View style={styles.border}><Text style={styles.text}>5</Text></View>
-        <View style={styles.border}><Text style={styles.text}>6</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>-</Text></View>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>4</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>5</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>6</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>-</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <View style={styles.border}><Text style={styles.text}>1</Text></View>
-        <View style={styles.border}><Text style={styles.text}>2</Text></View>
-        <View style={styles.border}><Text style={styles.text}>3</Text></View>
-        <View style={styles.border}><Text style={styles.cl}>+</Text></View>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>1</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>2</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>3</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>+</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <View style={styles.border}><Text style={styles.text}>+/-</Text></View>
-        <View style={styles.border}><Text style={styles.text}>0</Text></View>
-        <View style={styles.border}><Text style={styles.text}>,</Text></View>
-        <View style={styles.equal}><Text style={styles.text}>=</Text></View>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>+/-</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>0</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>,</Text></View></TouchableOpacity>
+        <TouchableOpacity><View style={styles.equal}><Text style={styles.text}>=</Text></View></TouchableOpacity>
       </View>    
 
     </View>
