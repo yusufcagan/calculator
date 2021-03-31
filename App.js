@@ -1,53 +1,120 @@
-import React, {useState} from 'react';
-import {Text ,View, StyleSheet, Dimensions, TouchableOpacity} from 'react-native'
+import React, {useState, useRef,useEffect} from 'react';
+import {Text ,View, StyleSheet, Dimensions, TouchableOpacity, Input, TextInput, Keyboard} from 'react-native'
 
 const {width,height} =Dimensions.get('window');
+var temp= '';
+var firVal = '';
+var secVal = '';
+var bool = false;
+var bbbl;
 
 function App () {
 
-  const [Number, setNumber] = useState(0);
+  const [Number, setNumber] = useState(0)
+  
+  const [secNumber, setsecNumber] = useState('');
 
-  onChange = (Number) => {
-    setNumber({Number:Number})
-  }
+  
+  const onChange = (cNumber) => {
+    if(cNumber == '/' || cNumber =='x' || cNumber =='(' || cNumber =='%' || cNumber =='-' || cNumber =='+' || cNumber =='='){
+      
+      if(bool==true){
+        secVal=secNumber;
+      }
+      
+     
+      switch (temp) {
+          case '+':
+            bbbl=parseInt(firVal)+parseInt(secVal);
+            setNumber(bbbl);
+            console.log(Number);
+
+            break;
+
+          case '-':
+            
+
+            break;
+
+          case '/':
+            
+
+            break;
+
+          case 'x':
+            
+
+            break;
+
+          case '=':
+            
+
+            break;
+
+          default:
+
+            break;
+      }
+
+        temp = cNumber;
+        firVal=Number;
+        setNumber(Number+cNumber);
+        
+        bool=true;
+        cNumber='';
+    }
+
+    else{
+      
+      setNumber(Number+cNumber);
+      if(bool==true){
+        setsecNumber(secNumber+cNumber);
+      }
+      
+    }
+
+    
+    
+  };
+    
+  
 
   return (
-    <View style={{flex:1,backgroundColor:'#00'}}> 
-      <View style={{height:'43%', justifyContent:'flex-end', alignItems:'flex-end'}}><Text style={{fontSize:70, color:'white'}}>{Number}</Text></View>    
-      
+    <View style={{flex:1,backgroundColor:'#000'}}>         
+      <View style={{height:'43%', justifyContent:'flex-end', alignItems:'flex-end'}}><TextInput showSoftInputOnFocus={false} style={{fontSize:60, color:'white'}}>{Number}</TextInput></View>
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <TouchableOpacity><View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>( )</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>%</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>/</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => setNumber('0')}><View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('(')}><View style={styles.border}><Text style={styles.cl}>( )</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('%')}><View style={styles.border}><Text style={styles.cl}>%</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('/')}><View style={styles.border}><Text style={styles.cl}>/</Text></View></TouchableOpacity>
       </View>   
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
         <TouchableOpacity onPress={() => onChange('7')}><View style={styles.border}><Text style={styles.text}>7</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>8</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>9</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>X</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('8')}><View style={styles.border}><Text style={styles.text}>8</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('9')}><View style={styles.border}><Text style={styles.text}>9</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('x')}><View style={styles.border}><Text style={styles.cl}>X</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>4</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>5</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>6</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>-</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('4')}><View style={styles.border}><Text style={styles.text}>4</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('5')}><View style={styles.border}><Text style={styles.text}>5</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('6')}><View style={styles.border}><Text style={styles.text}>6</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('-')}><View style={styles.border}><Text style={styles.cl}>-</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>1</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>2</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>3</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.cl}>+</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('1')}><View style={styles.border}><Text style={styles.text}>1</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('2')}><View style={styles.border}><Text style={styles.text}>2</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('3')}><View style={styles.border}><Text style={styles.text}>3</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('+')}><View style={styles.border}><Text style={styles.cl}>+</Text></View></TouchableOpacity>
       </View> 
 
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>+/-</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>0</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.border}><Text style={styles.text}>,</Text></View></TouchableOpacity>
-        <TouchableOpacity><View style={styles.equal}><Text style={styles.text}>=</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => setNumber(Number*-1)}><View style={styles.border}><Text style={styles.text}>+/-</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('0')}><View style={styles.border}><Text style={styles.text}>0</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange(',')}><View style={styles.border}><Text style={styles.text}>,</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => onChange('=')}><View style={styles.equal}><Text style={styles.text}>=</Text></View></TouchableOpacity>
       </View>    
 
     </View>
