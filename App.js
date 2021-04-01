@@ -1,89 +1,70 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {Text ,View, StyleSheet, Dimensions, TouchableOpacity, Input, TextInput, Keyboard} from 'react-native'
+import React, {useState, useRef,useEffect} from 'react'
+import {Text ,View, StyleSheet, Dimensions, TouchableOpacity, Input, TextInput, Keyboard, Alert} from 'react-native'
 
 const {width,height} =Dimensions.get('window');
-var temp= '';
-var firVal = '';
-var secVal = '';
-var bool = false;
-var bbbl;
+
 
 function App () {
 
-  const [Number, setNumber] = useState(0)
-  
-  const [secNumber, setsecNumber] = useState('');
-
-  
+  const [Number, setNumber] = useState('');
+  const [temp, settemp] = useState('');
+  const [sum1, setsum1] = useState('');
+  const [sum2, setsum2] = useState('');
+  const [bool, setbool] = useState(false);
+  const [bool2, setbool2] = useState(false);
+ 
   const onChange = (cNumber) => {
-    if(cNumber == '/' || cNumber =='x' || cNumber =='(' || cNumber =='%' || cNumber =='-' || cNumber =='+' || cNumber =='='){
+
+    if(cNumber == '+' || cNumber == '=' || cNumber == '-' ){
       
-      if(bool==true){
-        secVal=secNumber;
-      }
-      
-     
-      switch (temp) {
+      if(bool2==true){
+          switch (temp) {
           case '+':
-            bbbl=parseInt(firVal)+parseInt(secVal);
-            setNumber(bbbl);
-            console.log(Number);
-
+            setNumber(sum1+parseInt(sum2))
             break;
-
+          
           case '-':
-            
-
+            setNumber(sum1-parseInt(sum2))
             break;
-
-          case '/':
-            
-
-            break;
-
-          case 'x':
-            
-
-            break;
-
-          case '=':
-            
-
-            break;
-
+      
           default:
-
             break;
-      }
-
-        temp = cNumber;
-        firVal=Number;
-        setNumber(Number+cNumber);
-        
-        bool=true;
-        cNumber='';
-    }
-
-    else{
-      
-      setNumber(Number+cNumber);
-      if(bool==true){
-        setsecNumber(secNumber+cNumber);
+         }
+         if(cNumber=='='){
+           setbool(false);
+           setbool2(false);
+           setsum1('');
+           setsum2('');
+           //setNumber(Number.toString());
+           return Number;
+         }
       }
       
+
+      settemp(cNumber);
+      setbool(true);
+      setbool2(true);
     }
 
-    
+    if(bool==true){
+      setsum1(parseInt(Number));
+      setbool(false);
+    }
+    setNumber(Number+cNumber);
+    if(bool2==true){
+      setsum2(sum2+cNumber);
+    }
     
   };
-    
-  
+    //Alert.alert(Number);
+    //console.log(typeof(temp));
+    //console.log(temp);
 
   return (
     <View style={{flex:1,backgroundColor:'#000'}}>         
       <View style={{height:'43%', justifyContent:'flex-end', alignItems:'flex-end'}}><TextInput showSoftInputOnFocus={false} style={{fontSize:60, color:'white'}}>{Number}</TextInput></View>
       <View style={{flexDirection:'row', width:width, justifyContent:'space-between'}}>
-        <TouchableOpacity onPress={() => setNumber('0')}><View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View></TouchableOpacity>
+        <TouchableOpacity onPress={() => setNumber('')}><View style={styles.border}><Text style={{fontSize:40, color:'#b32400'}}>C</Text></View></TouchableOpacity>
         <TouchableOpacity onPress={() => onChange('(')}><View style={styles.border}><Text style={styles.cl}>( )</Text></View></TouchableOpacity>
         <TouchableOpacity onPress={() => onChange('%')}><View style={styles.border}><Text style={styles.cl}>%</Text></View></TouchableOpacity>
         <TouchableOpacity onPress={() => onChange('/')}><View style={styles.border}><Text style={styles.cl}>/</Text></View></TouchableOpacity>
